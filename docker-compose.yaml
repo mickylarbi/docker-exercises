@@ -1,5 +1,25 @@
 services:
+  my-java-app:
+    depends_on:
+      mysql:
+        condition: service_healthy
+    image: 13.140.189.182:8083/my-app:2.0
+    container_name: my-java-app
+    ports:
+      - "8080:8080"
+    environment:
+      DB_USER: ${DB_USER}
+      DB_NAME: ${DB_NAME}
+      DB_PWD: ${DB_PWD}
+      DB_SERVER: ${DB_SERVER}
+    networks:
+      - db-network
   mysql:
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     image: mysql:latest
     container_name: mysql
     environment:
