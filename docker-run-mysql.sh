@@ -26,3 +26,7 @@ docker run -d --name my-app \
   -e DB_PWD=$DB_PWD \
   -e DB_SERVER=$DB_SERVER \
   my-app:2.0
+
+
+docker tag my-app:2.0 13.140.189.182:8083/my-app:2.0
+docker push 13.140.189.182:8083/my-app:2.0
